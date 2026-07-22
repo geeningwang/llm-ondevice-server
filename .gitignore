@@ -1,0 +1,7 @@
+www/*.litertlm
+www/*.task
+www/*.bin
+telemetry.db
+telemetry.db-wal
+telemetry.db-shm
+__pycache__/
