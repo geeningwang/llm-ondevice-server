@@ -79,7 +79,11 @@ Also update `WEB_ROOT` and `DB_PATH` if your project directory differs from the 
 sudo bash -c 'nohup python3 https_server.py > /dev/null 2>&1 &'
 ```
 
-## 5. Verify
+## 5. Database
+
+No manual setup is needed. The SQLite database (`telemetry.db`) is created automatically in the project root when `https_server.py` starts for the first time. The schema (sessions and samples tables) is initialized by the `init_db()` function on startup.
+
+## 6. Verify
 
 ```bash
 # HTTP static file
@@ -92,7 +96,7 @@ curl -s -o /dev/null -w "%{http_code}" https://<YOUR_IP>.nip.io/gemma3-1b-it-int
 curl -s https://<YOUR_IP>.nip.io/api/telemetry/sessions
 ```
 
-## 6. Certificate Renewal
+## 7. Certificate Renewal
 
 Let's Encrypt certificates expire after 90 days. Renew with:
 
@@ -110,7 +114,7 @@ sudo bash -c 'nohup python3 -m http.server 80 > /dev/null 2>&1 &'
 sudo bash -c 'nohup python3 https_server.py > /dev/null 2>&1 &'
 ```
 
-## 7. Stopping the Servers
+## 8. Stopping the Servers
 
 ```bash
 sudo kill $(pgrep -f 'http.server 80')    # HTTP
