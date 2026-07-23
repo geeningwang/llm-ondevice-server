@@ -1,4 +1,5 @@
 import http.server
+import socketserver
 import ssl
 import os
 import json
@@ -263,9 +264,13 @@ class TelemetryHandler(http.server.SimpleHTTPRequestHandler):
         pass
 
 
+class ThreadedHTTPServer(socketserver.ThreadingMixIn, http.server.HTTPServer):
+    daemon_threads = True
+
+
 if __name__ == '__main__':
     init_db()
-    httpd = http.server.HTTPServer(('0.0.0.0', 443), TelemetryHandler)
+    httpd = ThreadedHTTPServer(('0.0.0.0', 443), TelemetryHandler)
     ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
     ctx.load_cert_chain(CERT_PATH, KEY_PATH)
     httpd.socket = ctx.wrap_socket(httpd.socket, server_side=True)
