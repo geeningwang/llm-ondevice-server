@@ -1,6 +1,4 @@
-www/*.litertlm
-www/*.task
-www/*.bin
+www/
 telemetry.db
 telemetry.db-wal
 telemetry.db-shm
